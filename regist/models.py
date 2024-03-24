@@ -1,23 +1,33 @@
 from django.core.validators import MinLengthValidator, MaxLengthValidator, RegexValidator
 from django.db import models
 from django.contrib.auth.models import User
+
 # Create your models here.
 
 
 #创建存放网站持有者的信息的表
 class Website_Owner(models.Model):
-    real_name = models.CharField(max_length=20, validators=[
+    real_name = models.CharField(
+        max_length=20,
+        default='小明',
+        validators=[
         MinLengthValidator(1),
         MaxLengthValidator(20),
         RegexValidator(r'^[\u4e00-\u9fa5]+$', message='Field must be Chinese characters.')
     ])
-    id_card_number = models.CharField(max_length=18, validators=[
+    id_card_number = models.CharField(
+        max_length=18,
+        default='000000000000000000',
+        validators=[
         RegexValidator(
             regex=r'^\d{17}(\d|X|x)$',
             message='Field must be a valid Chinese ID card number.'
         )
     ])
-    user = models.CharField(max_length=16, validators=[
+    user = models.CharField(
+        max_length=16,
+        default = '00000000',
+        validators=[
         MinLengthValidator(8),
         MaxLengthValidator(16),
         RegexValidator(r'^[a-zA-Z0-9]{8,16}$',
@@ -46,21 +56,21 @@ class Normal_Person(models.Model):
     password = models.CharField(max_length=16, validators=[
         MinLengthValidator(8),
         MaxLengthValidator(16),
-        RegexValidator(regex=r'^[\w!@#$%^&*()-+=,./;\'[]\<>?:"{}|`~]{8,16}$',
-                       message='密码必须为8-16长度的英文字符')
+        RegexValidator(regex=r'^[0-9A-Za-z~`!@#$%^&*()_+{}|:"?><,./;\'[\]\\=-]{8,16}$',
+                       message='密码必须为8-16长度的英文字符或数字')
     ])
 
 class Super_Person(models.Model):
     user_id = models.CharField(max_length=10, validators=[
         MinLengthValidator(1),
         MaxLengthValidator(10),
-        RegexValidator(r'^[\u4e00-\u9fa5]+$', message='Field must be Chinese characters.')
+        RegexValidator(r'^[\u4e00-\u9fa5]+$', message='账号必须位1~10位的中文字')
     ])
     password = models.CharField(max_length=16, validators=[
         MinLengthValidator(8),
         MaxLengthValidator(16),
-        RegexValidator(regex=r'^[\w!@#$%^&*()-+=,./;\'[]\<>?:"{}|`~]{8,16}$',
-                       message='密码必须为8-16长度的英文字符')
+        RegexValidator(regex=r'^[0-9A-Za-z~`!@#$%^&*()_+{}|:"?><,./;\'[\]\\=-]{8,16}$',
+                       message='密码必须为8-16长度的英文字符或数字')
     ])
 
 

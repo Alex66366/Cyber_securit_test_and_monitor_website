@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户端登录</title>
+    <link rel="stylesheet" href="../static/css/Login.css" >
+    <link rel="stylesheet" href="../static/css/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_2509933_dwa1s66i5ac.css">
+    <script src="../static/js/UserLogin.js"></script>
+    <script src="../static/js/jquery-3.7.1.js"></script>
+
+    <script type="text/javascript">
+        function userlogin() {
+            $.ajax({
+                type: "POST",
+                url: "/signin/signin_check/",
+                //data: $('#form2').serialize(),
+                data: $('#form2').serialize(),//JQuery中的ajax请求，遍历表单的输入控件，并把它们的名字和值转成一个查询字符串
+                //beforeSend: function(xhr) {
+                    //xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+                //},
+                //dataType: "json", // 告诉 jQuery 预期从服务器返回的数据类型是 JSON 格式的数据
+                success: function(response) {
+                    console.log(response)
+                    if (response === "Success") {
+                        alert("登录成功！");
+                        window.location.href = "/main_page"; // 跳转到主页面
+                    } else if (response === "Wrong") {
+                        alert("账号或密码错误！");
+                    } else if (response === "Empty"){
+                        alert("账号或密码不得为空！");
+                    }
+                    else{
+                        alert("操作异常！");
+                    }
+                },
+                error: function(response) {
+                    alert("响应异常!" ); // 显示服务器返回的错误消息
+                }
+            });
+        }
+        // 从cookie中获取CSRF令牌的函数
+//        function getCookie(name) {
+//            var cookieValue = null;
+//            if (document.cookie && document.cookie !== '') {
+//                var cookies = document.cookie.split(';');
+//                for (var i = 0; i < cookies.length; i++) {
+//                    var cookie = jQuery.trim(cookies[i]);
+//                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+//                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+//                        break;
+//                    }
+//                }
+//            }
+//            return cookieValue;
+//        }
+    </script>
+</head>
+<body>
+    <div class="userlogin" >
+        <h3>用户登录</h3>
+        <form action="##" method="POST" onsubmit = "return false" id="form2">
+            {% csrf_token %}
+            <div class="inputBox">
+                <input type="text" class="name" id="user_id" name="user_id" autocomplete="off"  placeholder="&nbsp;请输入账号,长度为8~16位的数字">
+                <label for="">用户名</label>
+            </div>
+            <div class="inputBox">
+                <input type="password" class="inputPassword" id = "password" name="password" autocomplete="off"  placeholder="&nbsp;请输入密码,长度为8~16位的英文字符和数字">
+                <label for="">密码</label>
+            </div>
+            <div class="submitButton" >
+                <input type="button" value="点击登录" onclick="userlogin()"><input type="button" value="管理员登录" onclick="javascript:window.location.href='/super_user/'">
+            </div>
+            <p class="registerLine" >还没有账号？<a href="/register/">点击注册</a></p>
+        </form>
+    </div>
+</body>
+</html>

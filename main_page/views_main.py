@@ -3,6 +3,13 @@ from django.shortcuts import render
 # Create your views here.
 import numpy as np
 from django.http import JsonResponse
+import joblib
+from cicflowmeter.sniffer import create_sniffer
+from main_page.cicflowmeter.flow_session import final_data_set
+
+# 存储每个包的详细信息
+packet_details_list = []
+
 #先预设每个指标最好情况能达到的值
 best_data = []
 
@@ -84,3 +91,33 @@ def evaluate_security_of_web_site(request):
         else:
             final_score += (finished_data[i]/best_data[i])*weight[i]
     return JsonResponse(final_score)
+
+#根据用户所提供的网卡信息，获取机器学习所需要的训练集,并将数据包信息存储起来
+def get_cyber_data(request):
+    input_interface = "Intel(R) Wi-Fi 6E AX211 160MHz"
+    output_file = "output.csv"
+    output_mode = "flow"
+    url_model = None
+
+    sniffer = create_sniffer(None, input_interface, output_mode, output_file, url_model)
+    sniffer.start()
+    try:
+        sniffer.join()
+        captured_packets = sniffer.results
+        if captured_packets:
+            # last_packet = captured_packets[-1]
+            # last_packet.show()
+            for packet in captured_packets:
+                #获取每个数据包的详细信息
+                packet_detail = packet.show(dump=True)
+                #将详细信息添加到列表中
+                packet_details_list.append(packet_detail)
+    except request.POST.get() == "stop":
+        sniffer.stop()
+    finally:
+        sniffer.join()
+    return final_data_set
+
+def check_attack_kind(request):
+    model = joblib.load(filename='./static/trained_model.pkl')
+    print(model)

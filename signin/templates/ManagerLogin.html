@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员登录</title>
+    <link rel="stylesheet" href="../static/css/Login.css" >
+    <link rel="stylesheet" href="../static/css/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_2509933_dwa1s66i5ac.css">
+    <script src="../static/js/ManagerLogin.js"></script>
+    <script src="../static/js/jquery-3.7.1.js"></script>
+
+    <script type="text/javascript">
+        function login() {
+                $.ajax({
+                    type:"POST",
+                    url:"/signin/signin_check_super/",
+                    data:$('#form1').serialize(),          
+                    //dataType,
+                    success: function(response){
+                        console.log(response)
+                        if(response === "Success"){
+                            alert("登陆成功！");
+                            window.location.href="/main_page/";
+                            <!--不知道这里会不会自动跳转到主页面,待调试-->
+                        }
+                        else if(response === "Wrong"){
+                            alert("用户名或密码错误！");
+                        }
+                        else if(response === "Empty"){
+                            alert("用户名或密码不得为空！");
+                        }
+                    },
+                    error: function(response){
+                        alert("响应异常！");
+                    }
+                });
+        }
+    </script>
+</head>
+
+<body>
+    <div class="managerlogin" >
+        <h3>管理员登录&emsp;&emsp;&ensp;<a href="/" class="user">返回用户登录</a></h3>
+        <!--form1为发送到服务器的数据-->
+        <form action="##" method="POST" onsubmit = "return false" id="form1">
+            {% csrf_token %}
+            <div class="inputBox">
+                <!--&#xe624; 用户图标插不进去，暂且先放着-->
+                <input type="text" class="name" name="user_id" autocomplete="off"  placeholder="&nbsp;请输入用户名">
+                <label for="">用户名</label>
+            </div>
+            <div class="inputBox">
+                <!--&#xe660;暂且先放着-->
+                <input type="password" class="inputPassword" name="password" autocomplete="off"  placeholder="&nbsp;请输入密码">
+                <label for="">密码</label>
+            </div>
+            <div class="submitButton" >
+                <input type="button" value="点击登录" onclick="login()">
+            </div>
+            <!--<p class="registerLine">还没有账号？<a href="Register.html">立即注册</a></p>-->
+        </form>
+    </div>
+</body>
+</html>

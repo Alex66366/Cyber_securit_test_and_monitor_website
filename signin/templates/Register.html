@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户注册</title>
+    <link rel="stylesheet" href="../static/css/register.css">
+    <script src="../static/js/UserLogin.js"></script>
+    <script src="../static/js/jquery-3.7.1.js"></script>
+
+    <script type="text/javascript">
+        function registering() {
+            $.ajax({
+                type:"POST",
+                url:"/register/check_register/",
+                data: $('#form3').serialize(),
+                //dataType,
+                success: function(response){
+                    //console.log(response)
+                    if(response === "Success"){
+                        alert("注册成功！");
+                        window.location.href="/";
+                        <!--不知道这里会不会自动跳转到主页面,待调试-->
+                    }
+                    else if(response === "Wrong"){
+                        alert("账号必须为8~16位的数字且密码必须为8~16位的英文字符或数字!");
+                    }
+                    else if(response === "Existed"){
+                        alert("账号已存在，请重新输入！");
+                    }
+                    else{
+                        alert("系统错误！");
+                    }
+                },
+                error: function(response){
+                    alert("响应异常！");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="registering" >
+        <h3>用户注册</h3>
+        <form action="##" method="POST" onsubmit = "return false" id="form3">
+            {% csrf_token %}
+            <div class="inputBox">
+                <input type="text" class="name" name="user_id" autocomplete="off"  placeholder="&nbsp;请输入账号,必须为8~16位的数字">
+                <label for="">账号</label>
+            </div>
+            <div class="inputBox">
+                <input type="password" class="inputPassword" name="password" autocomplete="off"  placeholder="&nbsp;请输入密码,必须为8~16位的英文字符或数字">
+                <label for="">密码</label>
+            </div>
+            <div class="submitButton" >
+                <input type="button" value="点击注册" onclick="registering()"><input type="button" value="返回登录" onclick="javascript:window.location.href='/'">
+            </div>
+        </form>
+    </div>
+</body>
+</html>

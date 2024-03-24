@@ -1,0 +1,176 @@
+html, body {  
+    height: 100%;
+}
+
+body {
+    background: url(../img/bg.jpg) 50% 50% no-repeat;
+    background-size: cover;  /*扩展以覆盖窗口*/
+}
+
+.managerlogin {
+    width: 350px;
+    height: 450px;
+    background: white;
+    box-shadow: 0px 0px 50px #333;
+    position: absolute; 
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    padding: 90px 40px;
+    box-sizing: border-box;
+}
+
+.userlogin {
+    width: 350px;
+    height: 450px;
+    background: white;
+    box-shadow: 0px 0px 50px #333;
+    position: absolute; 
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    padding: 90px 40px;
+    box-sizing: border-box;
+}
+
+.managerlogin h3 {  
+    font-size: 24px;
+    margin-bottom: 50px;
+}
+
+.userlogin h3 {  
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 50px;
+}
+
+.user {
+    font-size: 13px;
+    color: rgb(66, 151, 204);
+}
+
+.managerlogin form .inputBox {  /*后代选择器*/
+    position: relative;
+    height: 40px;
+    display: flex;  /*弹性盒子 中心对齐*/
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.userlogin form .inputBox{
+    position: relative;
+    height: 40px;
+    display: flex;  /*弹性盒子 中心对齐*/
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.managerlogin form .inputBox input {  /*后代选择器*/
+    height: 30px;
+    border: 0px;
+    border-bottom: 1px solid #ccc;
+    flex-grow: 1;  /*扩展占据弹性容器剩余空间*/
+    margin: 10px;
+    padding-left: 5px;
+    /*当焦点落到输入框上时，默认会有轮廓标识其状态，为美观将它删除*/
+    outline: none;
+}
+
+.userlogin form .inputBox input {  /*后代选择器*/
+    height: 30px;
+    border: 0px;
+    border-bottom: 1px solid #ccc;
+    flex-grow: 1;  /*扩展占据弹性容器剩余空间*/
+    margin: 10px;
+    padding-left: 5px;
+    /*当焦点落到输入框上时，默认会有轮廓标识其状态，为美观将它删除*/
+    outline: none;
+}
+
+.managerlogin form .inputBox input:focus {  /*后代+伪类*/
+    border: 1px solid dodgerblue;
+}
+
+.userlogin form .inputBox input:focus {  /*后代+伪类*/
+    border: 1px solid dodgerblue;
+}
+
+.managerlogin form .inputBox label {  /*后代选择器*/
+    position: absolute;  /*相对于弹性盒子绝对定位*/
+    padding: 0 3px;
+    left: 40px;
+    top: 20px;  /*父元素高为20*/
+    color: dodgerblue;
+    font-size: 14px;
+    background: #fff;
+    opacity: 0;  /*不透明度*/
+    transition: 0.5s;  /*过渡用时*/
+}
+
+.userlogin form .inputBox label {  /*后代选择器*/
+    position: absolute;  /*相对于弹性盒子绝对定位*/
+    padding: 0 3px;
+    left: 40px;
+    top: 20px;  /*父元素高为20*/
+    color: dodgerblue;
+    font-size: 14px;
+    background: #fff;
+    opacity: 0;  /*不透明度*/
+    transition: 0.5s;  /*过渡用时*/
+}
+
+.managerlogin form .inputBox input:focus + label {   /*后代+兄弟*/
+    opacity: 1;  /*不透明度*/
+    top: -8px;
+}
+
+.userlogin form .inputBox input:focus + label {   /*后代+兄弟*/
+    opacity: 1;  /*不透明度*/
+    top: -8px;
+}
+
+.submitButton {
+    display: flex;  /*弹性盒子 中心对齐*/
+    align-items: center;
+}
+
+.submitButton input {  /*后代选择器*/
+    margin: 10% 10%;
+    flex-grow: 1;
+    cursor: pointer;  
+    height: 40px;
+    line-height: 40px;
+    background: dodgerblue;
+    color: #fff;
+    border: none;
+    border-radius: 5px;  /*按钮圆角*/
+    outline: none;
+}
+
+.submitButton input:hover {  /*后代+伪类*/
+    box-shadow: 2px 2px 10px #555;
+    transition: 0.3s;
+}
+
+.submitButton input:active {  /*后代+伪类*/
+    box-shadow: none;
+    cursor: wait;  
+    outline: none;
+}
+
+.registerLine {
+    text-align: right;
+    font-size: 12px;
+}
+/*图标先放着
+@font-face {
+    font-family: 'iconfont'; 
+    src: url('//at.alicdn.com/t/c/font_4467523_ldqgqp007nl.woff2?t=1710559928637') format('woff2'),
+         url('//at.alicdn.com/t/c/font_4467523_ldqgqp007nl.woff?t=1710559928637') format('woff'),
+         url('//at.alicdn.com/t/c/font_4467523_ldqgqp007nl.ttf?t=1710559928637') format('truetype');
+  }
+*/

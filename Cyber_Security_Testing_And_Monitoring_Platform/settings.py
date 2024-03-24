@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main_page.apps.MainPageConfig',
-    'register.apps.RegisterConfig',
+    'regist.apps.RegistConfig',
     'signin.apps.SigninConfig'
 ]
 
